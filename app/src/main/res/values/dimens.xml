@@ -11,3 +11,8 @@
     <dimen name="card_padding_h">28dp</dimen>
     <dimen name="card_padding_v">32dp</dimen>
     <dimen name="card_bottom_space">8dp</dimen>
+
+
+    <dimen name="skill_card_corner">16dp</dimen>
+    <dimen name="skill_card_elevation">24dp</dimen>
+    <dimen name="skill_card_padding">8dp</dimen>
