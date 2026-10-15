@@ -16,3 +16,9 @@
     <dimen name="skill_card_corner">16dp</dimen>
     <dimen name="skill_card_elevation">24dp</dimen>
     <dimen name="skill_card_padding">8dp</dimen>
+
+    <!-- Divider -->
+    <dimen name="divider_thickness">1dp</dimen>
+
+    <!-- Field -->
+    <dimen name="field_corner">50dp</dimen
