@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_primary">#7B2CBF</color>
-    <color name="purple_secondary">#9D4EDD</color>
-    <color name="text_gray">#757575</color>
-    <color name="border_gray">#BDBDBD</color>
-    <color name="button_disabled">#E0E0E0</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="purple_title">#FF5E35B1</color>
+    <color name="purple_button">#FF7B2CBF</color>
+    <color name="gray_border">#FF9E9E9E</color>
+    <color name="gray_disabled">#FFE0E0E0</color>
+    <color name="gray_text">#FF757575</color>
+    <color name="dark_gray">#FF444444</color>
+    <color name="background_screen">#FFF5F5F5</color>
+    <color name="dot_active">#FFFFFFFF</color>
+    <color name="dot_inactive">#80FFFFFF</color>
+    <color name="divider_color">#FFD0D0D0</color>
+    <color name="skill_card_bg">#FFF3E8FC</color>
 </resources>

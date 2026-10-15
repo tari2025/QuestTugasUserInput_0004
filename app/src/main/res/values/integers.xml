@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="snackbar_duration_ms">5000</integer>
+    <integer name="max_name_length">30</integer>
+    <integer name="max_email_length">50</integer>
+</resources>
+

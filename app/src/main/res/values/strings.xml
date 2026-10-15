@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">Tugas5</string>
+
+    <!-- Snackbar -->
+    <string name="snackbar_message">Data berhasil disimpan!</string>
+
+    <!-- Date format -->
+    <string name="date_format">dd/MM/yyyy</string>
+
+    <!-- Date picker -->
+    <string name="date_ok">OK</string>
+    <string name="date_cancel">Batal</string>
+
+    <!-- Content description -->
+    <string name="cd_slide_image">Gambar slide</string>
+    <string name="cd_pick_date">Pilih tanggal</string>
+    <string name="cd_pick_experience">Pilih pengalaman</string>
+
+    <!-- Form -->
+    <string name="form_title">Biodata</string>
+    <string name="form_subtitle">Silakan isi data diri Anda</string>
+    <string name="hint_first_name">Nama Depan</string>
+    <string name="hint_last_name">Nama Belakang</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_birth_date">Tanggal Lahir</string>
+    <string name="hint_experience">Pengalaman</string>
+
+    <!-- Skills -->
+    <string name="label_skills">Skill</string>
+    <string name="skill_android">Android</string>
+    <string name="skill_uiux">UI/UX</string>
+    <string name="skill_web">Web</string>
+
+    <string-array name="experience_options">
+        <item>Kurang dari 1 tahun</item>
+        <item>1 - 3 tahun</item>
+        <item>3 - 5 tahun</item>
+        <item>Lebih dari 5 tahun</item>
+    </string-array>
+
+    <!-- Button -->
+    <string name="btn_proceed">Proceed</string>
 </resources>
