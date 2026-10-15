@@ -108,4 +108,49 @@ fun TugasScreen() {
         R.drawable.slide_3,
         R.drawable.slide_4
     )
+    val pagerState = rememberPagerState(pageCount = { slides.size })
+
+    val isFormValid = firstName.isNotBlank() &&
+            lastName.isNotBlank() &&
+            email.isNotBlank() &&
+            birthDate.isNotBlank() &&
+            experience.isNotBlank() &&
+            (skillAndroid || skillUiux || skillWeb)
+
+    val purpleButton = colorResource(R.color.purple_button)
+    val fieldShape = RoundedCornerShape(dimensionResource(R.dimen.field_corner))
+    val fieldColors = OutlinedTextFieldDefaults.colors(
+        focusedBorderColor = purpleButton,
+        unfocusedBorderColor = colorResource(R.color.gray_border),
+        disabledBorderColor = colorResource(R.color.gray_border),
+        disabledTextColor = colorResource(R.color.black),
+        disabledLabelColor = colorResource(R.color.gray_text),
+        disabledTrailingIconColor = colorResource(R.color.black),
+        focusedLabelColor = purpleButton,
+        unfocusedLabelColor = colorResource(R.color.dark_gray)
+    )
+
+    if (showDatePicker) {
+        val dateState = rememberDatePickerState()
+        DatePickerDialog(
+            onDismissRequest = { showDatePicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    dateState.selectedDateMillis?.let { millis ->
+                        val sdf = SimpleDateFormat(datePattern, Locale.getDefault())
+                        sdf.timeZone = TimeZone.getTimeZone("UTC")
+                        birthDate = sdf.format(Date(millis))
+                    }
+                    showDatePicker = false
+                }) { Text(stringResource(R.string.date_ok)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDatePicker = false }) {
+                    Text(stringResource(R.string.date_cancel))
+                }
+            }
+        ) {
+            DatePicker(state = dateState)
+        }
     }
+
