@@ -398,3 +398,12 @@ fun TugasScreen() {
                         }
                     }
 
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
+
+                    HorizontalDivider(
+                        thickness = dimensionResource(R.dimen.divider_thickness),
+                        color = colorResource(R.color.divider_color)
+                    )
+
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
+
