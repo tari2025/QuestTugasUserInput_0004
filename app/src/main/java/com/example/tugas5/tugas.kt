@@ -154,3 +154,28 @@ fun TugasScreen() {
         }
     }
 
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        containerColor = colorResource(R.color.background_screen)
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            // Layer 1: gambar slide (4 foto, swipe)
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(dimensionResource(R.dimen.image_height))
+            ) { page ->
+                Image(
+                    painter = painterResource(id = slides[page]),
+                    contentDescription = stringResource(R.string.cd_slide_image),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
+            }
