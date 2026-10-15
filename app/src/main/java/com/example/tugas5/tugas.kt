@@ -347,3 +347,54 @@ fun TugasScreen() {
                                     .matchParentSize()
                                     .clickable { expandExp = true }
                             )
+                            DropdownMenu(
+                                expanded = expandExp,
+                                onDismissRequest = { expandExp = false }
+                            ) {
+                                expOptions.forEach { option ->
+                                    DropdownMenuItem(
+                                        text = { Text(option) },
+                                        onClick = {
+                                            experience = option
+                                            expandExp = false
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_l)))
+
+                    Card(
+                        shape = RoundedCornerShape(dimensionResource(R.dimen.skill_card_corner)),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = dimensionResource(R.dimen.skill_card_elevation)
+                        ),
+                        colors = CardDefaults.cardColors(
+                            containerColor = colorResource(R.color.skill_card_bg)
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(dimensionResource(R.dimen.skill_card_padding))
+                        ) {
+                            Text(
+                                text = stringResource(R.string.label_skills),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = dimenSp(R.dimen.skill_title_size),
+                                color = colorResource(R.color.black),
+                                modifier = Modifier.padding(start = dimensionResource(R.dimen.space_s))
+                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                SkillCheck(stringResource(R.string.skill_android), skillAndroid) { skillAndroid = it }
+                                SkillCheck(stringResource(R.string.skill_uiux), skillUiux) { skillUiux = it }
+                                SkillCheck(stringResource(R.string.skill_web), skillWeb) { skillWeb = it }
+                            }
+                        }
+                    }
+
