@@ -3,6 +3,21 @@
     <!-- Gambar -->
     <dimen name="image_height">300dp</dimen>
 
+    <dimen name="title_size">28sp</dimen>
+    <dimen name="subtitle_size">12sp</dimen>
+    <dimen name="skill_title_size">14sp</dimen>
+    <dimen name="skill_label_size">13sp</dimen>
+    <dimen name="button_text_size">16sp</dimen
+
+
+    <dimen name="button_height">56dp</dimen>
+
+    <!-- Spacing -->
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_s">8dp</dimen>
+    <dimen name="space_m">16dp</dimen>
+    <dimen name="space_l">20dp</dimen>
+    <dimen name="space_xl">24dp</dimen>
     <!-- Kartu mengambang -->
     <dimen name="card_top_offset">180dp</dimen>
     <dimen name="card_horizontal_margin">0dp</dimen>    <!-- dari 32dp -> 0dp -->
