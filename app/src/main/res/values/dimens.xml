@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Gambar -->
+    <dimen name="image_height">300dp</dimen>
+
+    <!-- Kartu mengambang -->
+    <dimen name="card_top_offset">180dp</dimen>
+    <dimen name="card_horizontal_margin">0dp</dimen>    <!-- dari 32dp -> 0dp -->
+    <dimen name="card_corner">40dp</dimen>
+    <dimen name="card_elevation">12dp</dimen>
+    <dimen name="card_padding_h">28dp</dimen>
+    <dimen name="card_padding_v">32dp</dimen>
+    <dimen name="card_bottom_space">8dp</dimen>
