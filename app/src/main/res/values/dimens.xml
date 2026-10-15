@@ -35,5 +35,11 @@
     <!-- Divider -->
     <dimen name="divider_thickness">1dp</dimen>
 
+    <dimen name="dot_size">8dp</dimen>
+    <dimen name="dot_spacing">6dp</dimen>
+    <dimen name="dot_padding">16dp</dimen>
+
+
     <!-- Field -->
     <dimen name="field_corner">50dp</dimen
+</resources>
