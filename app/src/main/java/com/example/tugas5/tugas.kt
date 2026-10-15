@@ -89,3 +89,23 @@ fun TugasScreen() {
     var skillUiux by remember { mutableStateOf(false) }
     var skillWeb by remember { mutableStateOf(false) }
 
+    var showDatePicker by remember { mutableStateOf(false) }
+    var expandExp by remember { mutableStateOf(false) }
+
+    val expOptions = stringArrayResource(R.array.experience_options).toList()
+    val savedMessage = stringResource(R.string.snackbar_message)
+    val datePattern = stringResource(R.string.date_format)
+    val snackbarDurationMs = integerResource(R.integer.snackbar_duration_ms).toLong()
+    val maxNameLength = integerResource(R.integer.max_name_length)
+    val maxEmailLength = integerResource(R.integer.max_email_length)
+
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    val slides = listOf(
+        R.drawable.slide_1,
+        R.drawable.slide_2,
+        R.drawable.slide_3,
+        R.drawable.slide_4
+    )
+    }
