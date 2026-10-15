@@ -178,4 +178,104 @@ fun TugasScreen() {
                 )
             }
 
+            // Indikator titik
+            Row(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(dimensionResource(R.dimen.dot_padding)),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.dot_spacing))
+            ) {
+                repeat(slides.size) { index ->
+                    val dotColor = if (pagerState.currentPage == index) {
+                        colorResource(R.color.dot_active)
+                    } else {
+                        colorResource(R.color.dot_inactive)
+                    }
+                    Box(
+                        modifier = Modifier
+                            .size(dimensionResource(R.dimen.dot_size))
+                            .clip(CircleShape)
+                            .background(dotColor)
+                    )
+                }
             }
+
+            // Layer 2: ElevatedCard mengapung menimpa gambar.
+            // Tinggi 75% layar -> otomatis sisa 1/4 di bawah (dari fillMaxHeight).
+            ElevatedCard(
+                shape = RoundedCornerShape(dimensionResource(R.dimen.card_corner)),
+                elevation = CardDefaults.elevatedCardElevation(
+                    defaultElevation = dimensionResource(R.dimen.card_elevation)
+                ),
+                colors = CardDefaults.elevatedCardColors(
+                    containerColor = colorResource(R.color.white)
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.90f)
+                    .padding(
+                        start = dimensionResource(R.dimen.card_horizontal_margin),
+                        end = dimensionResource(R.dimen.card_horizontal_margin),
+                        top = dimensionResource(R.dimen.card_top_offset)
+                    )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .padding(
+                            horizontal = dimensionResource(R.dimen.card_padding_h),
+                            vertical = dimensionResource(R.dimen.card_padding_v)
+                        )
+                ) {
+                    Text(
+                        text = stringResource(R.string.form_title),
+                        color = colorResource(R.color.purple_title),
+                        fontSize = dimenSp(R.dimen.title_size),
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_s)))
+                    Text(
+                        text = stringResource(R.string.form_subtitle),
+                        color = colorResource(R.color.gray_text),
+                        fontSize = dimenSp(R.dimen.subtitle_size),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
+
+                    HorizontalDivider(
+                        thickness = dimensionResource(R.dimen.divider_thickness),
+                        color = colorResource(R.color.divider_color)
+                    )
+
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
+
+                    // Nama depan & belakang: presisi sama (fillMaxWidth + weight 1:1)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),   // <- KUNCI presisi
+                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.space_s))
+                    ) {
+                        OutlinedTextField(
+                            value = firstName,
+                            onValueChange = { if (it.length <= maxNameLength) firstName = it },
+                            label = { Text(stringResource(R.string.hint_first_name)) },
+                            singleLine = true,
+                            shape = fieldShape,
+                            colors = fieldColors,
+                            modifier = Modifier.weight(1f)
+                        )
+                        OutlinedTextField(
+                            value = lastName,
+                            onValueChange = { if (it.length <= maxNameLength) lastName = it },
+                            label = { Text(stringResource(R.string.hint_last_name)) },
+                            singleLine = true,
+                            shape = fieldShape,
+                            colors = fieldColors,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+
