@@ -407,3 +407,59 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
+                    // Tombol Proceed -> snackbar muncul 5 detik
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                launch {
+                                    snackbarHostState.showSnackbar(
+                                        message = savedMessage,
+                                        duration = SnackbarDuration.Indefinite
+                                    )
+                                }
+                                delay(snackbarDurationMs)
+                                snackbarHostState.currentSnackbarData?.dismiss()
+                            }
+                        },
+                        enabled = isFormValid,
+                        shape = RoundedCornerShape(dimensionResource(R.dimen.field_corner)),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = purpleButton,
+                            contentColor = colorResource(R.color.white),
+                            disabledContainerColor = colorResource(R.color.gray_disabled),
+                            disabledContentColor = colorResource(R.color.white)
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(dimensionResource(R.dimen.button_height))
+                    ) {
+                        Text(
+                            text = stringResource(R.string.btn_proceed),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = dimenSp(R.dimen.button_text_size)
+                        )
+                    }
+
+
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.card_bottom_space)))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SkillCheck(label: String, checked: Boolean, onChange: (Boolean) -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = onChange,
+            colors = CheckboxDefaults.colors(checkedColor = colorResource(R.color.purple_button))
+        )
+        Text(
+            text = label,
+            fontSize = dimenSp(R.dimen.skill_label_size),
+            color = colorResource(R.color.black)
+        )
+    }
+}
