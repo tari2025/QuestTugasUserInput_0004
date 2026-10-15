@@ -292,4 +292,58 @@ fun TugasScreen() {
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    }
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
+
+                    // Tgl Lahir & Experience: presisi sama (fillMaxWidth + weight 1:1)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),   // <- KUNCI presisi
+                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.space_s))
+                    ) {
+                        Box(modifier = Modifier.weight(1f)) {
+                            OutlinedTextField(
+                                value = birthDate,
+                                onValueChange = {},
+                                readOnly = true,
+                                enabled = false,
+                                label = { Text(stringResource(R.string.hint_birth_date)) },
+                                trailingIcon = {
+                                    Icon(
+                                        Icons.Default.DateRange,
+                                        contentDescription = stringResource(R.string.cd_pick_date)
+                                    )
+                                },
+                                singleLine = true,
+                                shape = fieldShape,
+                                colors = fieldColors,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .matchParentSize()
+                                    .clickable { showDatePicker = true }
+                            )
+                        }
+
+                        Box(modifier = Modifier.weight(1f)) {
+                            OutlinedTextField(
+                                value = experience,
+                                onValueChange = {},
+                                readOnly = true,
+                                enabled = false,
+                                label = { Text(stringResource(R.string.hint_experience)) },
+                                trailingIcon = {
+                                    Icon(
+                                        Icons.Default.ArrowDropDown,
+                                        contentDescription = stringResource(R.string.cd_pick_experience)
+                                    )
+                                },
+                                singleLine = true,
+                                shape = fieldShape,
+                                colors = fieldColors,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .matchParentSize()
+                                    .clickable { expandExp = true }
+                            )
