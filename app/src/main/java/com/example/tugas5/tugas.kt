@@ -279,3 +279,17 @@ fun TugasScreen() {
                         )
                     }
 
+                    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
+
+                    // Email: satu-satunya yang full
+                    OutlinedTextField(
+                        value = email,
+                        onValueChange = { if (it.length <= maxEmailLength) email = it },
+                        label = { Text(stringResource(R.string.hint_email)) },
+                        singleLine = true,
+                        shape = fieldShape,
+                        colors = fieldColors,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    }
