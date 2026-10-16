@@ -1,6 +1,6 @@
 FOTO HASIL CODING : </br>
-<img width="212" height="430" alt="{3A1504A7-177F-462D-A621-9E3FA4A40586}" src="https://github.com/user-attachments/assets/a5f53838-541a-4c3f-a635-701d4c275694" />
+<img width="208" height="394" alt="{83D3678D-5D8B-4CA1-974F-5083798B41CB}" src="https://github.com/user-attachments/assets/ec9b7b4c-c59c-41e7-87c5-3fcff8bdba49" />
 </br>
+<img width="188" height="402" alt="{8FB33406-79DE-4126-AC41-321D7A91064E}" src="https://github.com/user-attachments/assets/5ed4647e-ac6b-433d-875a-81af8ccc467a" />
 
-<img width="218" height="423" alt="{83BFA3FE-DB43-4BC0-ADA7-1D4DC9DE4149}" src="https://github.com/user-attachments/assets/f9596d8f-442f-4a23-96a3-747cfdcbe389" />
 </br>
