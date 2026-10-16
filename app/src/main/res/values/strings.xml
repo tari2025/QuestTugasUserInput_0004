@@ -21,8 +21,8 @@
     <string name="form_subtitle">Silakan isi data diri Anda dibawah ini !!!</string>
     <string name="hint_first_name">Nama Depan</string>
     <string name="hint_last_name">Nama Belakang</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_birth_date">Date</string>
+    <string name="hint_email">Email</string>K
+    <string name="hint_birth_date">Tgl Lahir</string>
     <string name="hint_experience">Experience</string>
 
     <!-- Skills -->
