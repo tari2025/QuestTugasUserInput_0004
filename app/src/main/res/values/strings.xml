@@ -26,6 +26,7 @@
     <string name="hint_experience">Pengalaman</string>
 
     <!-- Skills -->
+    <string name="snackbar_incomplete">Lengkapi semua data dulu</string>
     <string name="label_skills">Skill</string>
     <string name="skill_android">Android</string>
     <string name="skill_uiux">UI/UX</string>

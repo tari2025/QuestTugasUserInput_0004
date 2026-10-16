@@ -24,6 +24,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -91,11 +92,12 @@ fun TugasScreen() {
 
     var showDatePicker by remember { mutableStateOf(false) }
     var expandExp by remember { mutableStateOf(false) }
+    var showDataPopup by remember { mutableStateOf(false) }
 
     val expOptions = stringArrayResource(R.array.experience_options).toList()
     val savedMessage = stringResource(R.string.snackbar_message)
+    val incompleteMessage = stringResource(R.string.snackbar_incomplete)
     val datePattern = stringResource(R.string.date_format)
-    val snackbarDurationMs = integerResource(R.integer.snackbar_duration_ms).toLong()
     val maxNameLength = integerResource(R.integer.max_name_length)
     val maxEmailLength = integerResource(R.integer.max_email_length)
 
@@ -130,6 +132,7 @@ fun TugasScreen() {
         unfocusedLabelColor = colorResource(R.color.dark_gray)
     )
 
+    // ================= Date Picker =================
     if (showDatePicker) {
         val dateState = rememberDatePickerState()
         DatePickerDialog(
@@ -154,6 +157,44 @@ fun TugasScreen() {
         }
     }
 
+    // ================= Popup Data (5 detik) =================
+    if (showDataPopup) {
+        AlertDialog(
+            onDismissRequest = { showDataPopup = false },
+            title = {
+                Text(
+                    text = "Data Berhasil Diisi",
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(
+                        dimensionResource(R.dimen.space_s)
+                    )
+                ) {
+                    Text("Nama: $firstName $lastName")
+                    Text("Email: $email")
+                    Text("Tanggal Lahir: $birthDate")
+                    Text("Pengalaman: $experience")
+                    Text(
+                        "Skill: " + listOfNotNull(
+                            if (skillAndroid) "Android" else null,
+                            if (skillUiux) "UI/UX" else null,
+                            if (skillWeb) "Web" else null
+                        ).joinToString(", ")
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showDataPopup = false }) {
+                    Text("Tutup")
+                }
+            }
+        )
+    }
+
+    // ================= UI =================
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         containerColor = colorResource(R.color.background_screen)
@@ -163,7 +204,7 @@ fun TugasScreen() {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            // Layer 1: gambar slide (4 foto, swipe)
+            // Layer 1: gambar slide
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier
@@ -183,7 +224,9 @@ fun TugasScreen() {
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(dimensionResource(R.dimen.dot_padding)),
-                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.dot_spacing))
+                horizontalArrangement = Arrangement.spacedBy(
+                    dimensionResource(R.dimen.dot_spacing)
+                )
             ) {
                 repeat(slides.size) { index ->
                     val dotColor = if (pagerState.currentPage == index) {
@@ -200,8 +243,7 @@ fun TugasScreen() {
                 }
             }
 
-            // Layer 2: ElevatedCard mengapung menimpa gambar.
-            // Tinggi 75% layar -> otomatis sisa 1/4 di bawah (dari fillMaxHeight).
+            // Layer 2: ElevatedCard
             ElevatedCard(
                 shape = RoundedCornerShape(dimensionResource(R.dimen.card_corner)),
                 elevation = CardDefaults.elevatedCardElevation(
@@ -254,10 +296,12 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // Nama depan & belakang: presisi sama (fillMaxWidth + weight 1:1)
+                    // Nama depan & belakang
                     Row(
-                        modifier = Modifier.fillMaxWidth(),   // <- KUNCI presisi
-                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.space_s))
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(
+                            dimensionResource(R.dimen.space_s)
+                        )
                     ) {
                         OutlinedTextField(
                             value = firstName,
@@ -281,7 +325,7 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // Email: satu-satunya yang full
+                    // Email
                     OutlinedTextField(
                         value = email,
                         onValueChange = { if (it.length <= maxEmailLength) email = it },
@@ -294,10 +338,12 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // Tgl Lahir & Experience: presisi sama (fillMaxWidth + weight 1:1)
+                    // Tgl Lahir & Experience
                     Row(
-                        modifier = Modifier.fillMaxWidth(),   // <- KUNCI presisi
-                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.space_s))
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(
+                            dimensionResource(R.dimen.space_s)
+                        )
                     ) {
                         Box(modifier = Modifier.weight(1f)) {
                             OutlinedTextField(
@@ -366,6 +412,7 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_l)))
 
+                    // Card Skills
                     Card(
                         shape = RoundedCornerShape(dimensionResource(R.dimen.skill_card_corner)),
                         elevation = CardDefaults.cardElevation(
@@ -407,21 +454,27 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // Tombol Proceed -> snackbar muncul 5 detik
+                    // Tombol Proceed -> popup 5 detik -> snackbar
                     Button(
                         onClick = {
                             scope.launch {
-                                launch {
+                                if (isFormValid) {
+                                    showDataPopup = true
+                                    delay(5000L)
+                                    showDataPopup = false
                                     snackbarHostState.showSnackbar(
                                         message = savedMessage,
-                                        duration = SnackbarDuration.Indefinite
+                                        duration = SnackbarDuration.Short
+                                    )
+                                } else {
+                                    snackbarHostState.showSnackbar(
+                                        message = incompleteMessage,
+                                        duration = SnackbarDuration.Short
                                     )
                                 }
-                                delay(snackbarDurationMs)
-                                snackbarHostState.currentSnackbarData?.dismiss()
                             }
                         },
-                        enabled = isFormValid,
+                        enabled = true,
                         shape = RoundedCornerShape(dimensionResource(R.dimen.field_corner)),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = purpleButton,
@@ -439,7 +492,6 @@ fun TugasScreen() {
                             fontSize = dimenSp(R.dimen.button_text_size)
                         )
                     }
-
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.card_bottom_space)))
                 }
