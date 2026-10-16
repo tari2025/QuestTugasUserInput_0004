@@ -372,7 +372,7 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // ============ Tgl Lahir & Experience ============
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(
@@ -450,7 +450,7 @@ fun TugasScreen() {
                                 }
                             }
                         }
-                    }   // <- tutup Row (INI YANG TADI HILANG)
+                    }
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_l)))
 

@@ -17,13 +17,13 @@
     <string name="cd_pick_experience">Pilih pengalaman</string>
 
     <!-- Form -->
-    <string name="form_title">Biodata</string>
-    <string name="form_subtitle">Silakan isi data diri Anda</string>
+    <string name="form_title">Form Biodata</string>
+    <string name="form_subtitle">Silakan isi data diri Anda dibawah ini !!!</string>
     <string name="hint_first_name">Nama Depan</string>
     <string name="hint_last_name">Nama Belakang</string>
     <string name="hint_email">Email</string>
-    <string name="hint_birth_date">Tanggal Lahir</string>
-    <string name="hint_experience">Pengalaman</string>
+    <string name="hint_birth_date">Date</string>
+    <string name="hint_experience">Experience</string>
 
     <!-- Skills -->
     <string name="snackbar_incomplete">Lengkapi semua data dulu</string>
