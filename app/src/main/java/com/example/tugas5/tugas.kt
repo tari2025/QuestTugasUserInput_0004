@@ -101,7 +101,6 @@ fun TugasScreen() {
     var expandExp by remember { mutableStateOf(false) }
     var showDataPopup by remember { mutableStateOf(false) }
 
-    // Untuk auto-hide keyboard setelah 5 detik
     val keyboardController = LocalSoftwareKeyboardController.current
     var emailFocused by remember { mutableStateOf(false) }
 
@@ -145,7 +144,7 @@ fun TugasScreen() {
         unfocusedTextColor = colorResource(R.color.black)
     )
 
-    // ================= Auto-hide keyboard 5 detik di Email (hanya kalau masih kosong) =================
+    // Auto-hide keyboard 5 detik di Email (hanya kalau masih kosong)
     LaunchedEffect(emailFocused) {
         if (emailFocused && email.isBlank()) {
             delay(5000L)
@@ -381,33 +380,40 @@ fun TugasScreen() {
                         )
                     ) {
                         // ---- Tanggal Lahir ----
-                        OutlinedTextField(
-                            value = birthDate,
-                            onValueChange = {},
-                            readOnly = true,
-                            label = { Text(stringResource(R.string.hint_birth_date)) },
-                            trailingIcon = {
-                                Icon(
-                                    Icons.Default.DateRange,
-                                    contentDescription = stringResource(R.string.cd_pick_date)
-                                )
-                            },
-                            singleLine = true,
-                            shape = fieldShape,
-                            colors = fieldColors,
-                            modifier = Modifier
-                                .weight(1f)
-                                .clickable(
-                                    interactionSource = remember { MutableInteractionSource() },
-                                    indication = null
-                                ) { showDatePicker = true }
-                        )
+                        Box(modifier = Modifier.weight(1f)) {
+                            OutlinedTextField(
+                                value = birthDate,
+                                onValueChange = {},
+                                enabled = false,
+                                readOnly = true,
+                                label = { Text(stringResource(R.string.hint_birth_date)) },
+                                trailingIcon = {
+                                    Icon(
+                                        Icons.Default.DateRange,
+                                        contentDescription = stringResource(R.string.cd_pick_date)
+                                    )
+                                },
+                                singleLine = true,
+                                shape = fieldShape,
+                                colors = fieldColors,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .matchParentSize()
+                                    .clickable(
+                                        interactionSource = remember { MutableInteractionSource() },
+                                        indication = null
+                                    ) { showDatePicker = true }
+                            )
+                        }
 
                         // ---- Experience ----
                         Box(modifier = Modifier.weight(1f)) {
                             OutlinedTextField(
                                 value = experience,
                                 onValueChange = {},
+                                enabled = false,
                                 readOnly = true,
                                 label = { Text(stringResource(R.string.hint_experience)) },
                                 trailingIcon = {
@@ -419,8 +425,11 @@ fun TugasScreen() {
                                 singleLine = true,
                                 shape = fieldShape,
                                 colors = fieldColors,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Box(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .matchParentSize()
                                     .clickable(
                                         interactionSource = remember { MutableInteractionSource() },
                                         indication = null
@@ -441,7 +450,7 @@ fun TugasScreen() {
                                 }
                             }
                         }
-                    }
+                    }   // <- tutup Row (INI YANG TADI HILANG)
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_l)))
 
@@ -487,7 +496,7 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // ============ Tombol Proceed -> popup 5 detik -> snackbar ============
+                    // ============ Tombol Proceed ============
                     Button(
                         onClick = {
                             scope.launch {
@@ -547,3 +556,4 @@ fun SkillCheck(label: String, checked: Boolean, onChange: (Boolean) -> Unit) {
             color = colorResource(R.color.black)
         )
     }
+}
