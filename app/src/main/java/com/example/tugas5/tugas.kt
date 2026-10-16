@@ -4,6 +4,7 @@ import androidx.annotation.DimenRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -49,6 +51,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,7 +60,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.integerResource
@@ -65,6 +70,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
@@ -93,6 +100,10 @@ fun TugasScreen() {
     var showDatePicker by remember { mutableStateOf(false) }
     var expandExp by remember { mutableStateOf(false) }
     var showDataPopup by remember { mutableStateOf(false) }
+
+    // Untuk auto-hide keyboard setelah 5 detik
+    val keyboardController = LocalSoftwareKeyboardController.current
+    var emailFocused by remember { mutableStateOf(false) }
 
     val expOptions = stringArrayResource(R.array.experience_options).toList()
     val savedMessage = stringResource(R.string.snackbar_message)
@@ -133,6 +144,14 @@ fun TugasScreen() {
         focusedTextColor = colorResource(R.color.black),
         unfocusedTextColor = colorResource(R.color.black)
     )
+
+    // ================= Auto-hide keyboard 5 detik di Email (hanya kalau masih kosong) =================
+    LaunchedEffect(emailFocused) {
+        if (emailFocused && email.isBlank()) {
+            delay(5000L)
+            keyboardController?.hide()
+        }
+    }
 
     // ================= Date Picker =================
     if (showDatePicker) {
@@ -298,7 +317,7 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // Nama depan & belakang
+                    // ============ Nama Depan & Belakang ============
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(
@@ -312,6 +331,10 @@ fun TugasScreen() {
                             singleLine = true,
                             shape = fieldShape,
                             colors = fieldColors,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            ),
                             modifier = Modifier.weight(1f)
                         )
                         OutlinedTextField(
@@ -321,13 +344,17 @@ fun TugasScreen() {
                             singleLine = true,
                             shape = fieldShape,
                             colors = fieldColors,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            ),
                             modifier = Modifier.weight(1f)
                         )
                     }
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // Email
+                    // ============ Email ============
                     OutlinedTextField(
                         value = email,
                         onValueChange = { if (it.length <= maxEmailLength) email = it },
@@ -335,7 +362,13 @@ fun TugasScreen() {
                         singleLine = true,
                         shape = fieldShape,
                         colors = fieldColors,
-                        modifier = Modifier.fillMaxWidth()
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Email,
+                            imeAction = ImeAction.Done
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .onFocusChanged { emailFocused = it.isFocused }
                     )
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
@@ -348,29 +381,27 @@ fun TugasScreen() {
                         )
                     ) {
                         // ---- Tanggal Lahir ----
-                        Box(modifier = Modifier.weight(1f)) {
-                            OutlinedTextField(
-                                value = birthDate,
-                                onValueChange = {},
-                                readOnly = true,
-                                label = { Text(stringResource(R.string.hint_birth_date)) },
-                                trailingIcon = {
-                                    Icon(
-                                        Icons.Default.DateRange,
-                                        contentDescription = stringResource(R.string.cd_pick_date)
-                                    )
-                                },
-                                singleLine = true,
-                                shape = fieldShape,
-                                colors = fieldColors,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                            Box(
-                                modifier = Modifier
-                                    .matchParentSize()
-                                    .clickable { showDatePicker = true }
-                            )
-                        }
+                        OutlinedTextField(
+                            value = birthDate,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text(stringResource(R.string.hint_birth_date)) },
+                            trailingIcon = {
+                                Icon(
+                                    Icons.Default.DateRange,
+                                    contentDescription = stringResource(R.string.cd_pick_date)
+                                )
+                            },
+                            singleLine = true,
+                            shape = fieldShape,
+                            colors = fieldColors,
+                            modifier = Modifier
+                                .weight(1f)
+                                .clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = null
+                                ) { showDatePicker = true }
+                        )
 
                         // ---- Experience ----
                         Box(modifier = Modifier.weight(1f)) {
@@ -388,12 +419,12 @@ fun TugasScreen() {
                                 singleLine = true,
                                 shape = fieldShape,
                                 colors = fieldColors,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                            Box(
                                 modifier = Modifier
-                                    .matchParentSize()
-                                    .clickable { expandExp = true }
+                                    .fillMaxWidth()
+                                    .clickable(
+                                        interactionSource = remember { MutableInteractionSource() },
+                                        indication = null
+                                    ) { expandExp = true }
                             )
                             DropdownMenu(
                                 expanded = expandExp,
@@ -414,7 +445,7 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_l)))
 
-                    // Card Skills
+                    // ============ Card Skills ============
                     Card(
                         shape = RoundedCornerShape(dimensionResource(R.dimen.skill_card_corner)),
                         elevation = CardDefaults.cardElevation(
@@ -456,7 +487,7 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // Tombol Proceed -> popup 5 detik -> snackbar
+                    // ============ Tombol Proceed -> popup 5 detik -> snackbar ============
                     Button(
                         onClick = {
                             scope.launch {
@@ -516,4 +547,3 @@ fun SkillCheck(label: String, checked: Boolean, onChange: (Boolean) -> Unit) {
             color = colorResource(R.color.black)
         )
     }
-}
