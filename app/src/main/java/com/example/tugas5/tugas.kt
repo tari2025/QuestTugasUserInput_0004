@@ -129,7 +129,9 @@ fun TugasScreen() {
         disabledLabelColor = colorResource(R.color.gray_text),
         disabledTrailingIconColor = colorResource(R.color.black),
         focusedLabelColor = purpleButton,
-        unfocusedLabelColor = colorResource(R.color.dark_gray)
+        unfocusedLabelColor = colorResource(R.color.dark_gray),
+        focusedTextColor = colorResource(R.color.black),
+        unfocusedTextColor = colorResource(R.color.black)
     )
 
     // ================= Date Picker =================
@@ -176,7 +178,7 @@ fun TugasScreen() {
                     Text("Nama: $firstName $lastName")
                     Text("Email: $email")
                     Text("Tanggal Lahir: $birthDate")
-                    Text("Pengalaman: $experience")
+                    Text("Experience: $experience")
                     Text(
                         "Skill: " + listOfNotNull(
                             if (skillAndroid) "Android" else null,
@@ -338,19 +340,19 @@ fun TugasScreen() {
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.space_m)))
 
-                    // Tgl Lahir & Experience
+                    // ============ Tgl Lahir & Experience ============
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(
                             dimensionResource(R.dimen.space_s)
                         )
                     ) {
+                        // ---- Tanggal Lahir ----
                         Box(modifier = Modifier.weight(1f)) {
                             OutlinedTextField(
                                 value = birthDate,
                                 onValueChange = {},
                                 readOnly = true,
-                                enabled = false,
                                 label = { Text(stringResource(R.string.hint_birth_date)) },
                                 trailingIcon = {
                                     Icon(
@@ -370,12 +372,12 @@ fun TugasScreen() {
                             )
                         }
 
+                        // ---- Experience ----
                         Box(modifier = Modifier.weight(1f)) {
                             OutlinedTextField(
                                 value = experience,
                                 onValueChange = {},
                                 readOnly = true,
-                                enabled = false,
                                 label = { Text(stringResource(R.string.hint_experience)) },
                                 trailingIcon = {
                                     Icon(
